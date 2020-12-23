@@ -180,7 +180,7 @@ _enableHighBitrateVideo(enableHighBitrateVideo) {
 
 	webrtc::field_trial::InitFieldTrialsFromString(
 		"WebRTC-Audio-SendSideBwe/Enabled/"
-		"WebRTC-Audio-Allocation/min:6kbps,max:32kbps/"
+		"WebRTC-Audio-Allocation/min:64kbps,max:128ps/"
 		"WebRTC-Audio-OpusMinPacketLossRate/Enabled-1/"
 		"WebRTC-FlexFEC-03/Enabled/"
 		"WebRTC-FlexFEC-03-Advertised/Enabled/"
@@ -226,9 +226,9 @@ _enableHighBitrateVideo(enableHighBitrateVideo) {
 	_call.reset(webrtc::Call::Create(callConfig));
 
     cricket::AudioOptions audioOptions;
-    audioOptions.echo_cancellation = true;
-    audioOptions.noise_suppression = true;
-    audioOptions.audio_jitter_buffer_fast_accelerate = true;
+    audioOptions.echo_cancellation = false;
+    audioOptions.noise_suppression = false;
+    audioOptions.audio_jitter_buffer_fast_accelerate = false;
 
     std::vector<std::string> streamIds;
     streamIds.push_back("1");
@@ -242,9 +242,9 @@ _enableHighBitrateVideo(enableHighBitrateVideo) {
 	const uint8_t opusSdpChannels = 2;
 	const uint32_t opusSdpBitrate = 0;
 
-	const uint8_t opusMinBitrateKbps = 6;
-	const uint8_t opusMaxBitrateKbps = 32;
-	const uint8_t opusStartBitrateKbps = 8;
+	const uint8_t opusMinBitrateKbps = 128;
+	const uint8_t opusMaxBitrateKbps = 128;
+	const uint8_t opusStartBitrateKbps = 128;
 	const uint8_t opusPTimeMs = 120;
 
 	cricket::AudioCodec opusCodec(opusSdpPayload, opusSdpName, opusClockrate, opusSdpBitrate, opusSdpChannels);
@@ -258,15 +258,15 @@ _enableHighBitrateVideo(enableHighBitrateVideo) {
 	cricket::AudioSendParameters audioSendPrameters;
 	audioSendPrameters.codecs.push_back(opusCodec);
 	audioSendPrameters.extensions.emplace_back(webrtc::RtpExtension::kTransportSequenceNumberUri, 1);
-	audioSendPrameters.options.echo_cancellation = true;
+	audioSendPrameters.options.echo_cancellation = false;
 	//audioSendPrameters.options.experimental_ns = false;
-	audioSendPrameters.options.noise_suppression = true;
-	audioSendPrameters.options.auto_gain_control = true;
+	audioSendPrameters.options.noise_suppression = false;
+	audioSendPrameters.options.auto_gain_control = false;
 	//audioSendPrameters.options.highpass_filter = false;
 	audioSendPrameters.options.typing_detection = false;
 	//audioSendPrameters.max_bandwidth_bps = 16000;
-	audioSendPrameters.rtcp.reduced_size = true;
-	audioSendPrameters.rtcp.remote_estimate = true;
+	audioSendPrameters.rtcp.reduced_size = false;
+	audioSendPrameters.rtcp.remote_estimate = false;
 	_audioChannel->SetSendParameters(audioSendPrameters);
 	_audioChannel->AddSendStream(cricket::StreamParams::CreateLegacy(_ssrcAudio.outgoing));
 	_audioChannel->SetInterface(_audioNetworkInterface.get(), webrtc::MediaTransportConfig());
