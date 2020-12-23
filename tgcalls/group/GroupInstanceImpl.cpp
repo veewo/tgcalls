@@ -1197,10 +1197,10 @@ public:
         webrtc::AudioProcessing *apm = builder.Create();
 
         webrtc::AudioProcessing::Config audioConfig;
-        webrtc::AudioProcessing::Config::NoiseSuppression noiseSuppression;
-        noiseSuppression.enabled = false;
-        noiseSuppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::kLow;
-        audioConfig.noise_suppression = noiseSuppression;
+        //webrtc::AudioProcessing::Config::NoiseSuppression noiseSuppression;
+        //noiseSuppression.enabled = false;
+        //noiseSuppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::kLow;
+        //audioConfig.noise_suppression = noiseSuppression;
 
         audioConfig.high_pass_filter.enabled = false;
 
