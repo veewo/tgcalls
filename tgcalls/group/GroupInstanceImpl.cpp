@@ -1114,11 +1114,11 @@ public:
 
         webrtc::field_trial::InitFieldTrialsFromString(
             //"WebRTC-Audio-SendSideBwe/Enabled/"
-            "WebRTC-Audio-Allocation/min:6kbps,max:32kbps/"
+            "WebRTC-Audio-Allocation/min:64kbps,max:128kbps/"
             "WebRTC-Audio-OpusMinPacketLossRate/Enabled-1/"
             //"WebRTC-FlexFEC-03/Enabled/"
             //"WebRTC-FlexFEC-03-Advertised/Enabled/"
-            "WebRTC-PcFactoryDefaultBitrates/min:6kbps,start:32kbps,max:32kbps/"
+            "WebRTC-PcFactoryDefaultBitrates/min:64kbps,start:64kbps,max:128kbps/"
         );
 
         PlatformInterface::SharedInstance()->configurePlatformAudio();
@@ -1198,11 +1198,11 @@ public:
 
         webrtc::AudioProcessing::Config audioConfig;
         webrtc::AudioProcessing::Config::NoiseSuppression noiseSuppression;
-        noiseSuppression.enabled = true;
-        noiseSuppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::kHigh;
+        noiseSuppression.enabled = false;
+        noiseSuppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::kLow;
         audioConfig.noise_suppression = noiseSuppression;
 
-        audioConfig.high_pass_filter.enabled = true;
+        audioConfig.high_pass_filter.enabled = false;
 
         apm->ApplyConfig(audioConfig);
 
@@ -1230,7 +1230,7 @@ public:
         webrtc::PeerConnectionInterface::RTCConfiguration config;
         config.sdp_semantics = webrtc::SdpSemantics::kUnifiedPlan;
         //config.continual_gathering_policy = webrtc::PeerConnectionInterface::ContinualGatheringPolicy::GATHER_CONTINUALLY;
-        config.audio_jitter_buffer_fast_accelerate = true;
+        config.audio_jitter_buffer_fast_accelerate = false;
         config.prioritize_most_likely_ice_candidate_pairs = true;
         config.presume_writable_when_fully_relayed = true;
         //config.audio_jitter_buffer_enable_rtx_handling = true;
