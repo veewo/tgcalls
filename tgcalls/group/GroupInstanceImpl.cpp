@@ -975,15 +975,15 @@ public:
     }
 
     virtual int32_t EnableBuiltInAEC(bool enable) override {
-        return _impl->EnableBuiltInAEC(enable);
+        return _impl->EnableBuiltInAEC(disable);
     }
 
     virtual int32_t EnableBuiltInAGC(bool enable) override {
-        return _impl->EnableBuiltInAGC(enable);
+        return _impl->EnableBuiltInAGC(disable);
     }
 
     virtual int32_t EnableBuiltInNS(bool enable) override {
-        return _impl->EnableBuiltInNS(enable);
+        return _impl->EnableBuiltInNS(disable);
     }
 
     virtual int32_t GetPlayoutUnderrunCount() const override {
